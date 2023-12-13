@@ -1,10 +1,9 @@
-import { db } from "@/lib/db";
 import { FC } from "react";
 
 interface pageProps {}
 
-const Home: FC<pageProps> = async ({}) => {
-	return <main></main>;
+const Home: FC<pageProps> = ({}) => {
+	return <main>Home</main>;
 };
 
 export default Home;

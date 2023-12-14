@@ -23,6 +23,9 @@ const config: Config = {
 					DEFAULT: "hsl(var(--chat))",
 					foreground: "hsl(var(--chat-foreground))",
 				},
+				gray: {
+					DEFAULT: "hsl(var(--gray))",
+				},
 				primary: {
 					DEFAULT: "hsl(var(--primary))",
 					foreground: "hsl(var(--primary-foreground))",

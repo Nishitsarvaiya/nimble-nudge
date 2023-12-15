@@ -1,5 +1,6 @@
 "use client";
 
+import { Icons } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
@@ -28,7 +29,7 @@ const SignInPage: FC<pageProps> = ({}) => {
 				<div className="h-full max-w-xl px-5 mx-auto">
 					<div className="h-full flex flex-col items-center justify-center">
 						<div className="w-24 mb-10">
-							<Image src="/logo-dark.svg" alt="" width={200} height={148} priority />
+							<Icons.logoDark className="w-full h-auto fill-primary" />
 						</div>
 						<Button
 							variant="outline"

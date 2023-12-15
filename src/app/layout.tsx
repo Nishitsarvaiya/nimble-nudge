@@ -3,6 +3,7 @@ import "./globals.css";
 import { primaryFont } from "./fonts";
 import { cn } from "@/lib/utils";
 import { Toaster } from "sonner";
+import Loader from "@/components/Loader";
 
 export const metadata: Metadata = {
 	title: "NimbleNudge | Messenger",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en">
 			<body className={cn("min-h-screen antialiased", primaryFont.className, primaryFont.variable)}>
 				{children}
+				<Loader />
 				<Toaster />
 			</body>
 		</html>

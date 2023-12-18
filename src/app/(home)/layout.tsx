@@ -1,5 +1,6 @@
-import React, { ReactNode } from "react";
-import Sidebar from "../../components/Sidebar";
+import React, { ReactNode } from 'react';
+import Sidebar from '../../components/Sidebar';
+import Listview from '@/components/Listview';
 
 type Props = {
 	children: ReactNode;
@@ -7,9 +8,11 @@ type Props = {
 
 export default function layout({ children }: Props) {
 	return (
-		<div className="h-screen w-full overflow-hidden fixed">
+		<div className='h-screen w-full overflow-hidden fixed main-layout'>
 			<Sidebar />
-			<main>{children}</main>
+			<Listview />
+			<main className=''>{children}</main>
+			<aside></aside>
 		</div>
 	);
 }

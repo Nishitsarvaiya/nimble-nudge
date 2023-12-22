@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import Sidebar from "../../components/Sidebar";
 import Listview from "@/components/ListView";
+import ChatLayout from "@/components/ChatLayout";
 
 type Props = {
 	children: ReactNode;
@@ -11,7 +12,7 @@ export default function layout({ children }: Props) {
 		<div className="h-screen w-full overflow-hidden fixed main-layout">
 			<Sidebar />
 			<Listview />
-			<main className="">{children}</main>
+			<ChatLayout>{children}</ChatLayout>
 			<aside></aside>
 		</div>
 	);

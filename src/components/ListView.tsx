@@ -4,7 +4,7 @@ type Props = {};
 
 export default function Listview({}: Props) {
 	return (
-		<div className="h-full border-r border-r-gray">
+		<div className="h-full border-r">
 			<Messages />
 		</div>
 	);

@@ -9,9 +9,9 @@ import ProfileButton from "./ProfileButton";
 export default function Sidebar() {
 	const [isLightTheme, setIsLightTheme] = useState<boolean>(false);
 	return (
-		<aside className="grid-area-[sidebar] h-full border-r border-r-gray">
+		<aside className="h-full border-r">
 			<div className="flex flex-col items-center justify-between h-full">
-				<div className="flex flex-col items-center py-8 gap-4">
+				<div className="flex flex-col items-center py-6 gap-4">
 					<Button asChild variant="ghost" size="icon">
 						<Link href="/">
 							<Icons.logoDark className="w-10 h-10 fill-primary" />

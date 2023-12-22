@@ -4,42 +4,41 @@
 
 @layer base {
 	:root {
-		--background: 0 0% 100%;
-		--foreground: 0 0% 27%;
-
+		--gray: 0 0% 94%;
+		--gray-light: 0 0% 96%;
+		--gray-text: 0 0% 51%;
+		--white: 0 0% 100%;
 		--chat: 0 0% 27%;
-		--chat-foreground: 0 0% 100%;
 
-		--card: 0 0% 100%;
-		--card-foreground: 222.2 84% 4.9%;
+		--background: var(--white);
+		--foreground: var(--chat);
 
-		--popover: 0 0% 100%;
-		--popover-foreground: 222.2 84% 4.9%;
+		--card: var(--white);
+		--card-foreground: var(--chat);
 
-		--primary: 0 0% 27%;
-		--primary-foreground: 0 0% 100%;
+		--popover: var(--white);
+		--popover-foreground: var(--chat);
+
+		--primary: var(--chat);
+		--primary-foreground: var(--white);
 
 		--secondary: 210 40% 96.1%;
 		--secondary-foreground: 222.2 47.4% 11.2%;
 
-		--muted: 210 40% 96.1%;
-		--muted-foreground: 215.4 16.3% 46.9%;
+		--muted: var(--gray);
+		--muted-foreground: var(--gray-text);
 
-		--accent: 0 0% 96%;
-		--accent-foreground: 0 0% 27%;
+		--accent: var(--gray-light);
+		--accent-foreground: var(--chat);
 
 		--destructive: 0 84.2% 60.2%;
 		--destructive-foreground: 210 40% 98%;
 
-		--border: 0 0% 94%;
-		--input: 0 0% 94%;
-		--ring: 0 0% 51%;
+		--border: var(--gray);
+		--input: var(--gray-light);
+		--ring: var(--gray-text);
 
 		--radius: 1rem;
-
-		--gray: 0 0% 94%;
-		--gray-light: 0 0% 96%;
-		--gray-text: 0 0% 51%;
 
 		--sidebar-width: 100px;
 		--listview-width: 400px;
@@ -88,6 +87,6 @@
 
 .main-layout {
 	display: grid;
-	grid-template-areas: 'sidebar listview content friendinfo';
+	grid-template-areas: "sidebar listview content friendinfo";
 	grid-template-columns: 100px 400px 1fr 400px;
 }

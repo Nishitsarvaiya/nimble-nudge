@@ -13,7 +13,6 @@ export default function layout({ children }: Props) {
 			<Sidebar />
 			<Listview />
 			<ChatLayout>{children}</ChatLayout>
-			<aside></aside>
 		</div>
 	);
 }

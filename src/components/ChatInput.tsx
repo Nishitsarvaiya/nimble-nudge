@@ -27,7 +27,7 @@ export default function ChatInput({}: Props) {
 	};
 
 	return (
-		<div className="absolute bottom-6 w-full px-8">
+		<div className="absolute bottom-6 w-full px-8 z-20">
 			<div className="relative">
 				<ReactTextareaAutosize
 					ref={textareaRef}

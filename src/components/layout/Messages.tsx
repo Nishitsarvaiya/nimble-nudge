@@ -1,42 +1,15 @@
-"use client";
-
 import Image from "next/image";
-import { Icons } from "./Icons";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { ScrollArea } from "./ui/scroll-area";
-import { useEffect, useRef, useState } from "react";
+import { Icons } from "../Icons";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { ScrollArea } from "../ui/scroll-area";
 
 type Props = {};
 
 export default function Messages({}: Props) {
-	const titleRef = useRef<HTMLDivElement | null>(null);
-	const searchBarRef = useRef<HTMLDivElement | null>(null);
-	const wrapperRef = useRef<HTMLDivElement | null>(null);
-	const [scrollAreaHeight, setScrollAreaHeight] = useState<number>(0);
-
-	const calculateScrollAreaHeight = () => {
-		const titleHeight = titleRef.current?.clientHeight || 0;
-		const searchBarHeight = searchBarRef.current?.clientHeight || 0;
-		const wrapperHeight = wrapperRef.current?.clientHeight || 0;
-		return wrapperHeight - (titleHeight + searchBarHeight);
-	};
-
-	useEffect(() => {
-		setScrollAreaHeight(calculateScrollAreaHeight());
-
-		window.addEventListener("resize", () => {
-			setScrollAreaHeight(calculateScrollAreaHeight());
-		});
-
-		return () => {
-			window.removeEventListener("resize", () => {});
-		};
-	}, []);
-
 	return (
-		<div className="h-full max-h-screen" ref={wrapperRef}>
-			<div className="h-[100px] flex items-center justify-between pl-8 pr-5" ref={titleRef}>
+		<div className="h-full max-h-screen">
+			<div className="h-[100px] flex items-center justify-between pl-8 pr-5">
 				<div className="text-2xl font-semibold">
 					Messages <span className="text-base font-medium">(26)</span>
 				</div>
@@ -44,7 +17,7 @@ export default function Messages({}: Props) {
 					<Icons.newMessage className="w-6 h-6 fill-primary" />
 				</Button>
 			</div>
-			<div className="flex items-center justify-between gap-3 pl-8 pr-5 pb-5" ref={searchBarRef}>
+			<div className="flex items-center justify-between gap-3 pl-8 pr-5 pb-5">
 				<div className="flex-1 relative">
 					<Icons.search className="w-4 h-4 fill-muted-foreground absolute top-1/2 -translate-y-1/2 left-5" />
 					<Input type="text" placeholder="Search chats" className="pl-12" />
@@ -53,8 +26,8 @@ export default function Messages({}: Props) {
 					<Icons.filters className="w-6 h-6 fill-primary" />
 				</Button>
 			</div>
-			<ScrollArea style={{ height: scrollAreaHeight }}>
-				<ul className="">
+			<ScrollArea style={{ height: "calc(100% - 176px)" }}>
+				<ul>
 					<li className="px-8">
 						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
 							<div className="flex items-center justify-between w-full">

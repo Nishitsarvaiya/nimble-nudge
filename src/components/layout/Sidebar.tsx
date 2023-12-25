@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import Link from "next/link";
 import { useState } from "react";
-import ProfileButton from "./ProfileButton";
+import ProfileButton from "../ProfileButton";
 
 export default function Sidebar() {
 	const [isLightTheme, setIsLightTheme] = useState<boolean>(false);

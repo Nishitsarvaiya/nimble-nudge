@@ -19,7 +19,7 @@ export default function layout({ children }: Props) {
 					<Listview />
 				</ResizablePanel>
 				<ResizableHandle withHandle />
-				<ResizablePanel defaultSize={100}>
+				<ResizablePanel defaultSize={75}>
 					<ChatLayout>{children}</ChatLayout>
 				</ResizablePanel>
 			</ResizablePanelGroup>

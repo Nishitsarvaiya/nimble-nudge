@@ -15,7 +15,7 @@ export default function layout({ children }: Props) {
 		<div className="h-screen w-full overflow-hidden fixed main-layout">
 			<Sidebar />
 			<ResizablePanelGroup direction="horizontal">
-				<ResizablePanel minSize={25} maxSize={50} defaultSize={25}>
+				<ResizablePanel minSize={25} maxSize={50} defaultSize={25} className="min-w-[400px]">
 					<Listview />
 				</ResizablePanel>
 				<ResizableHandle withHandle />

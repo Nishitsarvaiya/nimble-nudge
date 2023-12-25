@@ -3,6 +3,7 @@ import { Icons } from "../Icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
+import ChatCard from "../ChatCard";
 
 type Props = {};
 
@@ -29,254 +30,301 @@ export default function Messages({}: Props) {
 			<ScrollArea style={{ height: "calc(100% - 176px)" }}>
 				<ul>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="default">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-accent">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-accent">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
-								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 					<li className="px-8">
-						<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-							<div className="flex items-center justify-between w-full">
-								<div className="flex items-center gap-4">
-									<div>
-										<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-											<Image
-												src="/profile-picture.jpg"
-												alt=""
-												fill
-												style={{ objectFit: "cover" }}
-											/>
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
 										</div>
 									</div>
 									<div>
-										<div className="text-lg">Nishit Sarvaiya</div>
-										<div className="text-sm">How are you?</div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
 									</div>
 								</div>
-								<div>
-									<div className="text-sm font-bold text-muted-foreground">16:30</div>
+							</Button>
+						</ChatCard>
+					</li>
+					<li className="px-8">
+						<ChatCard>
+							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+								<div className="flex items-center justify-between w-full">
+									<div className="flex items-center gap-4">
+										<div>
+											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+												<Image
+													src="/profile-picture.jpg"
+													alt=""
+													fill
+													style={{ objectFit: "cover" }}
+												/>
+											</div>
+										</div>
+										<div>
+											<div className="text-lg">Nishit Sarvaiya</div>
+											<div className="text-sm text-muted-foreground">How are you?</div>
+										</div>
+									</div>
+									<div>
+										<div className="text-sm font-medium text-muted-foreground">16:30</div>
+									</div>
 								</div>
-							</div>
-						</Button>
+							</Button>
+						</ChatCard>
 					</li>
 				</ul>
 			</ScrollArea>

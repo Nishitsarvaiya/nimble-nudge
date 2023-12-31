@@ -34,16 +34,18 @@ const SignInPage: FC = () => {
 	});
 
 	const onSubmit: SubmitHandler<ValidationSchema> = async (data) => {
+		showLoader();
 		const res = await signIn('credentials', { ...data, redirect: false })
 			.then((res) => {
-				console.log(res);
 				if (!res?.ok) {
-					toast.error('Invalid Credentials');
+					toast.error('Invalid Credentials', { position: 'top-center' });
 				} else {
+					toast.success('Sign in successfully!', { position: 'top-center' });
 					router.replace('/');
 				}
 			})
-			.catch((error) => toast.error(error));
+			.catch((error) => toast.error(error, { position: 'top-center' }))
+			.finally(() => hideLoader());
 	};
 	return (
 		<main>

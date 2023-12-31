@@ -2,6 +2,7 @@
 
 import Loader from '@/components/Loader';
 import { LoaderContextProvider } from '@/contexts/LoaderContext';
+import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
 import { Toaster } from 'sonner';
 
@@ -11,14 +12,16 @@ type Props = {
 
 export default function Providers({ children }: Props) {
 	return (
-		<LoaderContextProvider>
-			{children}
-			<Loader />
-			<Toaster
-				closeButton
-				theme='system'
-				toastOptions={{ classNames: { error: '!bg-red-600 !border-red-600' } }}
-			/>
-		</LoaderContextProvider>
+		<SessionProvider>
+			<LoaderContextProvider>
+				{children}
+				<Loader />
+				<Toaster
+					closeButton
+					theme='system'
+					toastOptions={{ classNames: { success: 'bg-foreground', error: '!bg-red-600 !border-red-600' } }}
+				/>
+			</LoaderContextProvider>
+		</SessionProvider>
 	);
 }

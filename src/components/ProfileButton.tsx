@@ -9,7 +9,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import useLoader from '@/hooks/useLoader';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { toast } from 'sonner';
 
@@ -17,6 +17,7 @@ type Props = {};
 
 export default function ProfileButton({}: Props) {
 	const { showLoader, hideLoader } = useLoader();
+	const session = useSession();
 
 	const signUserOut = async () => {
 		showLoader();
@@ -36,8 +37,8 @@ export default function ProfileButton({}: Props) {
 					<Image src='/profile-picture.jpg' alt='' fill style={{ objectFit: 'cover' }} />
 				</div>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align='start' side='left' sideOffset={10} alignOffset={-85}>
-				<DropdownMenuLabel>My Account</DropdownMenuLabel>
+			<DropdownMenuContent align='start' side='left' sideOffset={10} alignOffset={-115}>
+				<DropdownMenuLabel>{session.data?.user.name}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>Profile</DropdownMenuItem>
 				<DropdownMenuItem onClick={signUserOut}>Logout</DropdownMenuItem>

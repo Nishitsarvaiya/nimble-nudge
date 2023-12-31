@@ -50,12 +50,13 @@ const SignInPage: FC = ({}) => {
 			});
 
 			if (res.ok) {
+				toast.success('Account created successfully!', { position: 'top-center' });
 				signIn();
 			} else {
-				toast.error((await res.json()).error);
+				toast.error((await res.json()).error, { position: 'top-center' });
 			}
 		} catch (error) {
-			toast.error('Something went wrong! Please try again');
+			toast.error('Something went wrong! Please try again', { position: 'top-center' });
 		} finally {
 			hideLoader();
 		}

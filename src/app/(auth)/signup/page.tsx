@@ -4,16 +4,17 @@ import { Icons } from '@/components/Icons';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import useLoader from '@/hooks/useLoader';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { FC } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { z } from 'zod';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { toast } from 'sonner';
 
 const validationSchema = z.object({
+	name: z.string().min(1, { message: 'Please enter your name' }),
 	email: z.string().min(1, { message: 'Please enter your email' }).email({
 		message: 'Must be a valid email',
 	}),
@@ -22,9 +23,9 @@ const validationSchema = z.object({
 
 type ValidationSchema = z.infer<typeof validationSchema>;
 
-const SignInPage: FC = () => {
+const SignInPage: FC = ({}) => {
 	const { showLoader, hideLoader } = useLoader();
-	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
@@ -33,18 +34,33 @@ const SignInPage: FC = () => {
 		resolver: zodResolver(validationSchema),
 	});
 
+	const router = useRouter();
+
 	const onSubmit: SubmitHandler<ValidationSchema> = async (data) => {
-		const res = await signIn('credentials', { ...data, redirect: false })
-			.then((res) => {
-				console.log(res);
-				if (!res?.ok) {
-					toast.error('Invalid Credentials');
-				} else {
-					router.replace('/');
-				}
-			})
-			.catch((error) => toast.error(error));
+		showLoader();
+		try {
+			const res = await fetch('/api/register', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+				},
+				body: JSON.stringify({
+					...data,
+				}),
+			});
+
+			if (res.ok) {
+				signIn();
+			} else {
+				toast.error((await res.json()).error);
+			}
+		} catch (error) {
+			toast.error('Something went wrong! Please try again');
+		} finally {
+			hideLoader();
+		}
 	};
+
 	return (
 		<main>
 			<section className='h-screen w-full fixed bg-background'>
@@ -55,9 +71,27 @@ const SignInPage: FC = () => {
 								<Icons.logoDark className='w-full h-auto fill-primary' />
 							</div>
 							<h1 className='text-xl text-center font-semibold leading-tight text-primary md:text-2xl'>
-								Sign in to your account
+								Create an account
 							</h1>
 							<form className='space-y-4 md:space-y-6' onSubmit={handleSubmit(onSubmit)}>
+								<div>
+									<label
+										htmlFor='name'
+										className='block mb-2 text-sm font-medium text-muted-foreground'
+									>
+										Full Name
+									</label>
+									<Input
+										placeholder='John Doe'
+										className='h-[65px] px-6 text-lg'
+										id='name'
+										type='text'
+										{...register('name')}
+									/>
+									{errors.name && (
+										<p className='text-sm text-red-400 mt-2'> {errors.name?.message}</p>
+									)}
+								</div>
 								<div>
 									<label
 										htmlFor='email'
@@ -97,14 +131,14 @@ const SignInPage: FC = () => {
 
 								<Button
 									className='h-[65px] w-full text-xl mb-3 disabled:opacity-100 rounded-xl'
-									title='Sign in'
+									title='Create account'
 								>
-									Sign in
+									Create account
 								</Button>
 								<p className='text-md'>
-									Don't have an account?{' '}
-									<Link href='/signup' className='font-semibold hover:underline text-primary'>
-										Create a new account
+									Already have an account?{' '}
+									<Link href='/signin' className='font-semibold hover:underline text-primary'>
+										Sign in
 									</Link>
 								</p>
 							</form>

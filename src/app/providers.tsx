@@ -14,7 +14,11 @@ export default function Providers({ children }: Props) {
 		<LoaderContextProvider>
 			{children}
 			<Loader />
-			<Toaster />
+			<Toaster
+				closeButton
+				theme='system'
+				toastOptions={{ classNames: { error: '!bg-red-600 !border-red-600' } }}
+			/>
 		</LoaderContextProvider>
 	);
 }

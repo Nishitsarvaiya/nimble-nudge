@@ -1,64 +1,84 @@
-import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
-import { NextAuthOptions, User } from "next-auth";
-import { db } from "./db";
-import Google from "next-auth/providers/google";
+import { UpstashRedisAdapter } from '@next-auth/upstash-redis-adapter';
+import bcrypt from 'bcryptjs';
+import { NextAuthOptions, User } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import { db } from './db';
 
-function getGoogleCredentials(): { clientId: string; clientSecret: string } {
-	const clientId = process.env.GOOGLE_CLIENT_ID;
-	const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
-
-	if (!clientId || clientId.length === 0) {
-		throw new Error("Missing GOOGLE_CLIENT_ID in getGoogleCredentials");
-	}
-	if (!clientSecret || clientSecret.length === 0) {
-		throw new Error("Missing GOOGLE_CLIENT_SECRET in getGoogleCredentials");
-	}
-
-	return { clientId, clientSecret };
+interface ICredentials {
+	email: string;
+	password: string;
 }
 
 export const authOptions: NextAuthOptions = {
 	adapter: UpstashRedisAdapter(db),
 	providers: [
-		Google({
-			clientId: getGoogleCredentials().clientId,
-			clientSecret: getGoogleCredentials().clientSecret,
+		Credentials({
+			credentials: {
+				email: {
+					type: 'email',
+					label: 'Email',
+					placeholder: 'John@doe.com',
+				},
+				password: { label: 'Password', type: 'password' },
+			},
+			async authorize(credentials) {
+				const { email, password } = credentials as ICredentials;
+				console.log('authorize :: ', email, password);
+				const dbUserID = (await db.get(`user:email:${email}`)) as string;
+
+				if (!dbUserID) {
+					return null;
+				}
+
+				const dbUser = (await db.get(`user:${dbUserID}`)) as any;
+				console.log(dbUser);
+
+				const doesPasswordMatch = await bcrypt.compare(password, dbUser.password);
+				if (!doesPasswordMatch) {
+					return null;
+				}
+
+				return {
+					id: dbUser.id,
+					email: dbUser.email,
+					name: dbUser.name,
+					randomKey: '',
+				};
+			},
 		}),
 	],
 	session: {
-		strategy: "jwt",
+		strategy: 'jwt',
 	},
 	pages: {
-		signIn: "/signin",
+		signIn: '/signin',
 	},
 	callbacks: {
-		async jwt({ token, user }) {
-			const dbUser = (await db.get(`user:${token.id}`)) as User | null;
-
-			if (!dbUser) {
-				token.id = user!.id;
-				return token;
-			}
-
+		session: ({ session, token }) => {
+			console.log('Session Callback', { session, token });
 			return {
-				id: dbUser.id,
-				name: dbUser.name,
-				email: dbUser.email,
-				picture: dbUser.image,
+				...session,
+				user: {
+					...session.user,
+					id: token.id,
+					randomKey: token.randomKey,
+				},
 			};
 		},
-		async session({ session, token }) {
-			if (token) {
-				session.user.id = token.id;
-				session.user.name = token.name;
-				session.user.email = token.email;
-				session.user.image = token.picture;
+		jwt: ({ token, user }) => {
+			console.log('JWT Callback', { token, user });
+			if (user) {
+				const u = user as unknown as any;
+				return {
+					...token,
+					id: u.id,
+					randomKey: u.randomKey,
+				};
 			}
-
-			return session;
+			return token;
 		},
-		redirect() {
-			return "/";
-		},
+		// redirect() {
+		// 	return '/';
+		// },
 	},
 };

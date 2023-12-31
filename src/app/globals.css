@@ -9,6 +9,7 @@
 		--gray-text: 0 0% 51%;
 		--white: 0 0% 100%;
 		--chat: 0 0% 27%;
+		--black: 0 0% 9%;
 
 		--background: var(--white);
 		--foreground: var(--chat);

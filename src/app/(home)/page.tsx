@@ -1,7 +1,7 @@
 import ChatView from "@/components/chat/ChatView";
 import { Icons } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
 import { FC } from "react";
 

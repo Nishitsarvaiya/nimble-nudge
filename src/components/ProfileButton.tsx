@@ -38,7 +38,12 @@ export default function ProfileButton({}: Props) {
 				</div>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="start" side="left" sideOffset={10}>
-				<DropdownMenuLabel>{session.data?.user.name}</DropdownMenuLabel>
+				<DropdownMenuLabel>
+					<div className="flex flex-col space-y-1">
+						<p className="leading-none">{session.data?.user.name}</p>
+						<p className="text-xs leading-none text-muted-foreground">{session.data?.user.email}</p>
+					</div>
+				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>Profile</DropdownMenuItem>
 				<DropdownMenuItem onClick={signUserOut}>Logout</DropdownMenuItem>

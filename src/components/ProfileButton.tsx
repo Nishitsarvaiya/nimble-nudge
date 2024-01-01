@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
 	DropdownMenu,
@@ -7,11 +7,11 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import useLoader from '@/hooks/useLoader';
-import { signOut, useSession } from 'next-auth/react';
-import Image from 'next/image';
-import { toast } from 'sonner';
+} from "@/components/ui/dropdown-menu";
+import useLoader from "@/hooks/useLoader";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import { toast } from "sonner";
 
 type Props = {};
 
@@ -24,7 +24,7 @@ export default function ProfileButton({}: Props) {
 		try {
 			await signOut();
 		} catch (error) {
-			toast.error('There was an error in signing out. Please try again.', { position: 'top-center' });
+			toast.error("There was an error in signing out. Please try again.", { position: "top-center" });
 		} finally {
 			hideLoader();
 		}
@@ -33,11 +33,11 @@ export default function ProfileButton({}: Props) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<div className='w-14 h-14 border-4 border-gray rounded-xl relative overflow-hidden'>
-					<Image src='/profile-picture.jpg' alt='' fill style={{ objectFit: 'cover' }} />
+				<div className="w-14 h-14 border-4 border-gray rounded-xl relative overflow-hidden">
+					<Image src="/profile-picture.jpg" alt="" fill style={{ objectFit: "cover" }} />
 				</div>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align='start' side='left' sideOffset={10} alignOffset={-115}>
+			<DropdownMenuContent align="start" side="left" sideOffset={10}>
 				<DropdownMenuLabel>{session.data?.user.name}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem>Profile</DropdownMenuItem>

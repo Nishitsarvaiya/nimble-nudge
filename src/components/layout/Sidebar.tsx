@@ -12,11 +12,12 @@ export default function Sidebar() {
 		<aside className="h-full border-r">
 			<div className="flex flex-col items-center justify-between h-full">
 				<div className="flex flex-col items-center py-6 gap-4">
-					<Button asChild variant="ghost" size="icon">
+					<ProfileButton />
+					{/* <Button asChild variant="ghost" size="icon">
 						<Link href="/">
 							<Icons.logoDark className="w-10 h-10 fill-primary" />
 						</Link>
-					</Button>
+					</Button> */}
 
 					<div className="w-12 h-[1px] bg-gray"></div>
 					<div className="flex flex-col items-center gap-1">
@@ -45,7 +46,7 @@ export default function Sidebar() {
 				<div className="flex flex-col items-center py-10 gap-14">
 					<Switch
 						id="theme-switcher"
-						className="relative rotate-90"
+						className="relative rotate-90 origin-center mb-4"
 						checked={isLightTheme}
 						onCheckedChange={(checked) => setIsLightTheme(checked)}>
 						<div className="h-full w-full flex items-center justify-center absolute">
@@ -57,7 +58,6 @@ export default function Sidebar() {
 							</div>
 						</div>
 					</Switch>
-					<ProfileButton />
 				</div>
 			</div>
 		</aside>

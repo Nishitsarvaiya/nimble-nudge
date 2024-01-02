@@ -57,6 +57,7 @@ export async function POST(req: Request) {
 			{
 				senderId: session.user.id,
 				senderEmail: session.user.email,
+				senderName: session.user.name,
 			}
 		);
 

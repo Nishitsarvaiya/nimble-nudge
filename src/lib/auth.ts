@@ -1,8 +1,8 @@
-import { UpstashRedisAdapter } from '@next-auth/upstash-redis-adapter';
-import bcrypt from 'bcryptjs';
-import { NextAuthOptions, User } from 'next-auth';
-import Credentials from 'next-auth/providers/credentials';
-import { db } from './db';
+import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
+import bcrypt from "bcryptjs";
+import { NextAuthOptions, User } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import { db } from "./db";
 
 interface ICredentials {
 	email: string;
@@ -15,15 +15,14 @@ export const authOptions: NextAuthOptions = {
 		Credentials({
 			credentials: {
 				email: {
-					type: 'email',
-					label: 'Email',
-					placeholder: 'John@doe.com',
+					type: "email",
+					label: "Email",
+					placeholder: "John@doe.com",
 				},
-				password: { label: 'Password', type: 'password' },
+				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials) {
 				const { email, password } = credentials as ICredentials;
-				console.log('authorize :: ', email, password);
 				const dbUserID = (await db.get(`user:email:${email}`)) as string;
 
 				if (!dbUserID) {
@@ -31,7 +30,6 @@ export const authOptions: NextAuthOptions = {
 				}
 
 				const dbUser = (await db.get(`user:${dbUserID}`)) as any;
-				console.log(dbUser);
 
 				const doesPasswordMatch = await bcrypt.compare(password, dbUser.password);
 				if (!doesPasswordMatch) {
@@ -47,14 +45,14 @@ export const authOptions: NextAuthOptions = {
 		}),
 	],
 	session: {
-		strategy: 'jwt',
+		strategy: "jwt",
 	},
 	pages: {
-		signIn: '/signin',
+		signIn: "/signin",
 	},
 	callbacks: {
 		session: ({ session, token }) => {
-			console.log('Session Callback', { session, token });
+			console.log("Session Callback", { session, token });
 			return {
 				...session,
 				user: {
@@ -64,7 +62,7 @@ export const authOptions: NextAuthOptions = {
 			};
 		},
 		jwt: ({ token, user }) => {
-			console.log('JWT Callback', { token, user });
+			console.log("JWT Callback", { token, user });
 			if (user) {
 				const u = user as unknown as any;
 				return {

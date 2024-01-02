@@ -1,19 +1,17 @@
 "use client";
 
+import { pusherClient } from "@/lib/pusher";
+import { toPusherKey } from "@/lib/utils";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { Icons } from "./Icons";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
-import FriendRequests from "./FriendRequests";
-import { Suspense, useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import Spinner from "./Spinner";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { pusherClient } from "@/lib/pusher";
-import { toPusherKey } from "@/lib/utils";
-import axios from "axios";
 
 type Props = {};
 
@@ -37,7 +35,6 @@ export default function FriendRequestsButton({}: Props) {
 		console.log("listening to ", `user:${session.data?.user.id}:incoming_friend_requests`);
 
 		const friendRequestHandler = ({ senderId, senderEmail, senderName }: IncomingFriendRequest) => {
-			console.log("friendRequestHandler got called", senderId, senderEmail, senderName);
 			setFriendRequests((prev) => [...prev, { senderId, senderEmail, senderName }]);
 		};
 

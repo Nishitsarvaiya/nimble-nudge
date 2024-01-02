@@ -2,8 +2,9 @@ import { Icons } from "@/components/Icons";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import Link from "next/link";
-import FriendRequestsButton from "../FriendRequestsButton";
+import FriendRequestsWrapper from "../FriendRequestsWrapper";
 import ProfileButton from "../ProfileButton";
+import FriendsWrapper from "../FriendsWrapper";
 
 export default function Sidebar() {
 	return (
@@ -24,17 +25,14 @@ export default function Sidebar() {
 								<Icons.messages className="w-8 h-8 fill-primary" />
 							</Link>
 						</Button>
-						<Button asChild variant="ghost" size="icon">
-							<Link href="/people">
-								<Icons.users className="w-8 h-8 fill-primary" />
-							</Link>
-						</Button>
+						<FriendsWrapper />
+
 						<Button asChild variant="ghost" size="icon">
 							<Link href="/add-friend">
 								<Icons.addUser className="w-8 h-8 fill-primary" />
 							</Link>
 						</Button>
-						<FriendRequestsButton />
+						<FriendRequestsWrapper />
 					</div>
 				</div>
 				<div className="flex flex-col items-center py-10 gap-14">

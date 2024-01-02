@@ -1,11 +1,11 @@
-import Messages from "./Messages";
+import MessagesView from "./MessagesView";
 
 type Props = {};
 
 export default function Listview({}: Props) {
 	return (
 		<div className="h-full border-r">
-			<Messages />
+			<MessagesView />
 		</div>
 	);
 }

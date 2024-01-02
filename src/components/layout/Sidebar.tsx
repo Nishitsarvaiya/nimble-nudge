@@ -6,7 +6,11 @@ import FriendRequestsWrapper from "../FriendRequestsWrapper";
 import ProfileButton from "../ProfileButton";
 import FriendsWrapper from "../FriendsWrapper";
 
-export default function Sidebar() {
+type Props = {
+	sessionId: string;
+};
+
+export default function Sidebar({ sessionId }: Props) {
 	return (
 		<aside className="h-full border-r">
 			<div className="flex flex-col items-center justify-between h-full">

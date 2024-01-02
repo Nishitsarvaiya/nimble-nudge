@@ -8,11 +8,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Icons } from "./Icons";
+import FriendRequestsButton from "./FriendRequestsButton";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
-import FriendRequestsButton from "./FriendRequestsButton";
 
 type Props = {};
 
@@ -31,25 +30,25 @@ export default function FriendRequestsWrapper({}: Props) {
 		fetchRequests();
 	}, []);
 
-	useEffect(() => {
-		const friendRequestHandler = ({ senderId, senderEmail, senderName }: IncomingFriendRequest) => {
-			setFriendRequests((prev) => [...prev, { senderId, senderEmail, senderName }]);
-		};
+	// useEffect(() => {
+	// 	const friendRequestHandler = ({ senderId, senderEmail, senderName }: IncomingFriendRequest) => {
+	// 		setFriendRequests((prev) => [...prev, { senderId, senderEmail, senderName }]);
+	// 	};
 
-		if (session.data?.user.id) {
-			pusherClient.subscribe(toPusherKey(`user:${session.data?.user.id}:incoming_friend_requests`));
-			console.log("listening to ", `user:${session.data?.user.id}:incoming_friend_requests`);
+	// 	if (session.data?.user.id) {
+	// 		pusherClient.subscribe(toPusherKey(`user:${session.data?.user.id}:incoming_friend_requests`));
+	// 		console.log("listening to ", `user:${session.data?.user.id}:incoming_friend_requests`);
 
-			pusherClient.bind("incoming_friend_requests", friendRequestHandler);
-		}
+	// 		pusherClient.bind("incoming_friend_requests", friendRequestHandler);
+	// 	}
 
-		return () => {
-			if (session.data?.user.id) {
-				pusherClient.unsubscribe(toPusherKey(`user:${session.data?.user.id}:incoming_friend_requests`));
-				pusherClient.unbind("incoming_friend_requests", friendRequestHandler);
-			}
-		};
-	}, [session.data?.user.id]);
+	// 	return () => {
+	// 		if (session.data?.user.id) {
+	// 			pusherClient.unsubscribe(toPusherKey(`user:${session.data?.user.id}:incoming_friend_requests`));
+	// 			pusherClient.unbind("incoming_friend_requests", friendRequestHandler);
+	// 		}
+	// 	};
+	// }, [session.data?.user.id]);
 
 	const acceptFriend = async (senderId: string) => {
 		await axios.post("/api/friends/accept", { id: senderId });

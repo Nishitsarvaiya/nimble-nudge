@@ -16,8 +16,7 @@ import { MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 export default function FriendsWrapper() {
-	const session = useSession();
-	const router = useRouter();
+	// const session = useSession();
 	const [friends, setFriends] = useState<Friend[]>([]);
 
 	useEffect(() => {
@@ -30,24 +29,24 @@ export default function FriendsWrapper() {
 		fetchFriends();
 	}, []);
 
-	useEffect(() => {
-		const friendHandler = ({ id, email, name }: Friend) => {
-			setFriends((prev) => [...prev, { id, email, name }]);
-		};
+	// useEffect(() => {
+	// 	const friendHandler = ({ id, email, name }: Friend) => {
+	// 		setFriends((prev) => [...prev, { id, email, name }]);
+	// 	};
 
-		if (session.data?.user.id) {
-			pusherClient.subscribe(toPusherKey(`user:${session.data?.user.id}:new_friend`));
-			console.log("listening to ", `user:${session.data?.user.id}:new_friend`);
-			pusherClient.bind("new_friend", friendHandler);
-		}
+	// 	if (session.data?.user.id) {
+	// 		pusherClient.subscribe(toPusherKey(`user:${session.data?.user.id}:new_friend`));
+	// 		console.log("listening to ", `user:${session.data?.user.id}:new_friend`);
+	// 		pusherClient.bind("new_friend", friendHandler);
+	// 	}
 
-		return () => {
-			if (session.data?.user.id) {
-				pusherClient.unsubscribe(toPusherKey(`user:${session.data?.user.id}:new_friend`));
-				pusherClient.unbind("new_friend", friendHandler);
-			}
-		};
-	}, [session.data?.user.id]);
+	// 	return () => {
+	// 		if (session.data?.user.id) {
+	// 			pusherClient.unsubscribe(toPusherKey(`user:${session.data?.user.id}:new_friend`));
+	// 			pusherClient.unbind("new_friend", friendHandler);
+	// 		}
+	// 	};
+	// }, [session.data?.user.id]);
 
 	return (
 		<Dialog>
@@ -101,8 +100,14 @@ export default function FriendsWrapper() {
 											<DropdownMenuContent>
 												<DropdownMenuItem>
 													<div className="w-full flex items-center justify-between">
+														<div className="leading-none text-sm font-medium">Chat</div>
+														<Icons.newMessage className="w-4 h-4 fill-primary" />
+													</div>
+												</DropdownMenuItem>
+												<DropdownMenuItem>
+													<div className="w-full flex items-center justify-between">
 														<div className="leading-none text-sm font-medium">Unfriend</div>
-														<Icons.delete className="w-4 h-4 fill-red-500" />
+														<Icons.delete className="w-4 h-4 fill-red-600" />
 													</div>
 												</DropdownMenuItem>
 											</DropdownMenuContent>

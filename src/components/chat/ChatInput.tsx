@@ -45,7 +45,11 @@ export default function ChatInput({ chatId, chatPartner }: Props) {
 					placeholder="Type message"
 					className="block w-full resize-none py-5 pl-8 pr-[84px] rounded-2xl text-lg font-medium text-primary placeholder:text-muted-foreground transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 scrollbar-none bg-background/80 backdrop-blur-md"
 				/>
-				<Button variant="ghost" size="icon" className="absolute top-1/2 -translate-y-1/2 right-2">
+				<Button
+					variant="ghost"
+					size="icon"
+					className="absolute top-1/2 -translate-y-1/2 right-2"
+					onClick={sendMessage}>
 					<Icons.send className="w-6 h-6 fill-primary" />
 				</Button>
 			</div>

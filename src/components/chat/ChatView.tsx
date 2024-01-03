@@ -89,34 +89,46 @@ export default function ChatView({ chatId, chatPartner, sessionId, initialMessag
 			<ScrollArea className="h-screen" ref={containerRef}>
 				<div className="h-full py-[120px]">
 					{showChat && (
-						<div className="h-full px-8 flex flex-col-reverse gap-2">
+						<div className="h-full px-8 flex flex-col-reverse">
 							{messages.map((message, idx) => {
 								const isCurrentUser = message.senderId === sessionId;
 
 								const hasNextMessageFromSameUser =
 									messages[idx + 1]?.senderId === messages[idx].senderId;
 
+								const hasPrevMessageFromSameUser =
+									messages[idx - 1]?.senderId === messages[idx].senderId;
+
 								return (
-									<div className="chat-message" key={`${message.id}-${message.timestamp}`}>
+									<div
+										className={cn("mb-5", { "mb-2": hasPrevMessageFromSameUser })}
+										key={`${message.id}-${message.timestamp}`}
+										data-same={hasNextMessageFromSameUser}>
 										<div
 											className={cn("flex gap-2", {
 												"justify-end": isCurrentUser,
 											})}>
 											<div
-												className={cn("w-12 h-12 rounded-full overflow-hidden relative", {
+												className={cn({
 													"order-2": isCurrentUser,
 													"order-1": !isCurrentUser,
 													invisible: hasNextMessageFromSameUser,
 												})}>
-												<Image
-													src="/profile-picture.jpg"
-													alt=""
-													fill
-													style={{ objectFit: "cover" }}
-												/>
+												<div
+													className={cn(
+														"w-12 h-12 rounded-full overflow-hidden relative",
+														{}
+													)}>
+													<Image
+														src="/profile-picture.jpg"
+														alt=""
+														fill
+														style={{ objectFit: "cover" }}
+													/>
+												</div>
 											</div>
 											<div
-												className={cn("flex", {
+												className={cn("flex max-w-xl", {
 													"order-1 items-end": isCurrentUser,
 													"order-2 items-start": !isCurrentUser,
 												})}>
@@ -132,8 +144,8 @@ export default function ChatView({ chatId, chatPartner, sessionId, initialMessag
 																!hasNextMessageFromSameUser && !isCurrentUser,
 														}
 													)}>
-													<span className="leading-[16px]">{message.text}</span>
-													<span className="ml-3 leading-none text-xs text-muted-foreground">
+													<span className="">{message.text}</span>
+													<span className="ml-3  text-xs text-muted-foreground whitespace-nowrap">
 														{formatTimestamp(message.timestamp)}
 													</span>
 												</span>

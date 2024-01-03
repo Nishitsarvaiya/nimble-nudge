@@ -12,7 +12,7 @@ export default function Loader() {
 		<div className={cn("fixed inset-0 pointer-events-none", { hidden: !isLoading })}>
 			<div className="w-full h-full bg-background/80 backdrop-blur-[2px] grid place-items-center">
 				<div className="w-20 h-20 grid place-items-center bg-background rounded-2xl border border-gray-500 shadow-xl pointer-events-none">
-					<Spinner color="" />
+					<Spinner />
 				</div>
 			</div>
 		</div>

@@ -1,14 +1,17 @@
 "use client";
+import { pusherClient } from "@/lib/pusher";
+import { chatHrefConstructor, cn, formatTimestamp, toPusherKey } from "@/lib/utils";
 import Image from "next/image";
-import ChatCard from "./ChatCard";
-import { Button } from "./ui/button";
 import Link from "next/link";
-import { chatHrefConstructor } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import ChatCard from "./ChatCard";
+import UnseenChatToast from "./UnseenChatToast";
+import { Button } from "./ui/button";
 
 type Props = {
-	friends: Friend[];
+	friends: ExtendedUser[];
 	sessionId: string;
 };
 
@@ -16,6 +19,63 @@ export default function ChatList({ friends, sessionId }: Props) {
 	const router = useRouter();
 	const pathname = usePathname();
 	const [unseenMessages, setUnseenMessages] = useState<Message[]>([]);
+	const [activeChats, setActiveChats] = useState<ExtendedUser[]>(friends);
+
+	useEffect(() => {
+		pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
+		console.log("listening to :: ", `user:${sessionId}:chats`);
+		pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
+
+		const newFriendHandler = (newFriend: ExtendedUser) => {
+			console.log("received new user", newFriend);
+			setActiveChats((prev) => [...prev, newFriend]);
+		};
+
+		const chatHandler = (message: ExtendedMessage) => {
+			const shouldNotify = pathname !== `/chat/${chatHrefConstructor(sessionId, message.senderId)}`;
+			console.log(shouldNotify);
+
+			if (!shouldNotify) return;
+
+			// should be notified
+			toast(
+				<UnseenChatToast
+					sessionId={sessionId}
+					senderId={message.senderId}
+					senderImg={message.senderImg}
+					senderMessage={message.text}
+					senderName={message.senderName}
+				/>,
+				{ position: "top-center", duration: 100000 }
+			);
+			// toast.custom(
+			// 	(t) => (
+			// 		<UnseenChatToast
+			// 			t={t}
+			// 			sessionId={sessionId}
+			// 			senderId={message.senderId}
+			// 			senderImg={message.senderImg}
+			// 			senderMessage={message.text}
+			// 			senderName={message.senderName}
+			// 		/>
+			// 	),
+			// 	{ position: "top-center" }
+			// );
+
+			setUnseenMessages((prev) => [...prev, message]);
+		};
+
+		pusherClient.bind("new_message", chatHandler);
+		pusherClient.bind("new_friend", newFriendHandler);
+
+		return () => {
+			pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:chats`));
+			pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`));
+
+			pusherClient.unbind("new_message", chatHandler);
+			pusherClient.unbind("new_friend", newFriendHandler);
+		};
+	}, [pathname, sessionId, router]);
 
 	useEffect(() => {
 		if (pathname?.includes("chat")) {
@@ -25,9 +85,13 @@ export default function ChatList({ friends, sessionId }: Props) {
 		}
 	}, [pathname]);
 
+	const isChatActive = (senderId: string) => {
+		return pathname.includes(senderId);
+	};
+
 	return (
 		<ul className="space-y-2 py-2">
-			{friends.sort().map((friend) => {
+			{activeChats.sort().map((friend) => {
 				const unseenMessagesCount = unseenMessages.filter((unseenMsg) => {
 					return unseenMsg.senderId === friend.id;
 				}).length;
@@ -38,7 +102,12 @@ export default function ChatList({ friends, sessionId }: Props) {
 							<div className="w-2 h-2 rounded-full bg-blue-600 absolute left-8 top-1/2 -translate-y-1/2"></div>
 						)}
 						<ChatCard>
-							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
+							<Button
+								className={cn("h-auto p-4 rounded-3xl", {
+									"hover:bg-initial": isChatActive(friend.id),
+								})}
+								asChild
+								variant={isChatActive(friend.id) ? "default" : "ghost"}>
 								<Link
 									href={`/chat/${chatHrefConstructor(sessionId, friend.id)}`}
 									className="flex items-center justify-between w-full">
@@ -55,11 +124,21 @@ export default function ChatList({ friends, sessionId }: Props) {
 										</div>
 										<div>
 											<div className="text-lg">{friend.name}</div>
-											<div className="text-sm text-muted-foreground">How are you?</div>
+											{friend.lastMessage && (
+												<div
+													className={cn("text-sm", {
+														"text-muted": isChatActive(friend.id),
+														"text-muted-foreground": !isChatActive(friend.id),
+													})}>
+													{friend.lastMessage.text}
+												</div>
+											)}
 										</div>
 									</div>
 									<div>
-										<div className="text-sm font-medium text-muted-foreground">16:30</div>
+										<div className="text-sm font-medium text-muted-foreground">
+											{friend.lastMessage && formatTimestamp(friend.lastMessage.timestamp)}
+										</div>
 									</div>
 								</Link>
 							</Button>

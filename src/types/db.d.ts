@@ -23,3 +23,12 @@ interface FriendRequest {
 	senderId: string;
 	receiverId: string;
 }
+
+interface ExtendedUser extends User {
+	lastMessage: ExtendedMessage;
+}
+
+interface ExtendedMessage extends Message {
+	senderImg: string;
+	senderName: string;
+}

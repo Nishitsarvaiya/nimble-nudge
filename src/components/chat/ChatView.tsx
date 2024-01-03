@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Spinner from "../Spinner";
 import { ScrollArea } from "../ui/scroll-area";
 import ChatInput from "./ChatInput";
-import { cn, toPusherKey } from "@/lib/utils";
+import { cn, formatTimestamp, toPusherKey } from "@/lib/utils";
 import { format } from "date-fns";
 import { pusherClient } from "@/lib/pusher";
 
@@ -80,10 +80,6 @@ export default function ChatView({ chatId, chatPartner, sessionId, initialMessag
 		};
 	}, [chatId]);
 
-	const formatTimestamp = (timestamp: number) => {
-		return format(timestamp, "hh:mm bb");
-	};
-
 	return (
 		<div className="relative z-[1]">
 			<ScrollArea className="h-screen" ref={containerRef}>
@@ -145,7 +141,7 @@ export default function ChatView({ chatId, chatPartner, sessionId, initialMessag
 														}
 													)}>
 													<span className="">{message.text}</span>
-													<span className="ml-3  text-xs text-muted-foreground whitespace-nowrap">
+													<span className="ml-3 text-xs text-muted-foreground whitespace-nowrap">
 														{formatTimestamp(message.timestamp)}
 													</span>
 												</span>

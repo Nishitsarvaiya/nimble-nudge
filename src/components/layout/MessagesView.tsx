@@ -1,15 +1,14 @@
-import Image from "next/image";
-import ChatCard from "../ChatCard";
+import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
+import { fetchRedis } from "@/helpers/redis";
+import { authOptions } from "@/lib/auth";
+import { chatHrefConstructor } from "@/lib/utils";
+import { getServerSession } from "next-auth";
+import { notFound } from "next/navigation";
+import ChatList from "../ChatList";
 import { Icons } from "../Icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import ChatList from "../ChatList";
-import { toast } from "sonner";
-import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
-import { notFound } from "next/navigation";
 
 type Props = {};
 
@@ -19,6 +18,24 @@ export default async function MessagesView({}: Props) {
 
 	const friends = await getFriendsByUserId(session.user.id);
 	console.log("friends", friends);
+
+	const friendsWithLastMessage = (await Promise.all(
+		friends.map(async (friend) => {
+			const [lastMessageRaw] = (await fetchRedis(
+				"zrange",
+				`chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`,
+				-1,
+				-1
+			)) as string[];
+
+			const lastMessage = lastMessageRaw ? (JSON.parse(lastMessageRaw) as Message) : "";
+
+			return {
+				...friend,
+				lastMessage,
+			};
+		})
+	)) as ExtendedUser[];
 
 	return (
 		<div className="h-full max-h-screen">
@@ -46,7 +63,7 @@ export default async function MessagesView({}: Props) {
 			)}
 
 			<ScrollArea style={{ maxHeight: "calc(100% - 176px)" }}>
-				<ChatList friends={friends} sessionId={session.user.id} />
+				<ChatList friends={friendsWithLastMessage} sessionId={session.user.id} />
 			</ScrollArea>
 		</div>
 	);

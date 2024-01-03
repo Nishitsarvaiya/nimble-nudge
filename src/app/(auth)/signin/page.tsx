@@ -92,7 +92,7 @@ const SignInPage: FC = () => {
 									Sign in
 								</Button>
 								<p className="text-md">
-									Don't have an account?{" "}
+									Don&apos;t have an account?{" "}
 									<Link href="/signup" className="font-semibold hover:underline text-primary">
 										Create a new account
 									</Link>

@@ -6,8 +6,8 @@ type Props = {
 
 export default function ChatLayout({ children }: Props) {
 	return (
-		<main className="border-r relative" id="ChatLayout">
+		<div className="relative" id="ChatLayout">
 			{children}
-		</main>
+		</div>
 	);
 }

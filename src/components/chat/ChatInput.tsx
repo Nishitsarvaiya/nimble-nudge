@@ -6,10 +6,11 @@ import { useRef, useState } from "react";
 import { toast } from "sonner";
 // import axios from "axios";
 import { Button } from "../ui/button";
+import axios from "axios";
 
-type Props = {};
+type Props = { chatPartner: User; chatId: string };
 
-export default function ChatInput({}: Props) {
+export default function ChatInput({ chatId, chatPartner }: Props) {
 	const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 	const [input, setInput] = useState<string>("");
 
@@ -17,7 +18,7 @@ export default function ChatInput({}: Props) {
 		if (!input) return;
 
 		try {
-			// await axios.post("/api/message/send", { text: input, chatId });
+			await axios.post("/api/chat/send", { text: input, chatId });
 			setInput("");
 			textareaRef.current?.focus();
 		} catch {

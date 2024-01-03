@@ -13,10 +13,12 @@ import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { ScrollArea } from "./ui/scroll-area";
 
-type Props = {};
+type Props = {
+	sessionId: string;
+};
 
-export default function FriendRequestsWrapper({}: Props) {
-	const session = useSession();
+export default function FriendRequestsWrapper({ sessionId }: Props) {
+	// const session = useSession();
 	const router = useRouter();
 	const [friendRequests, setFriendRequests] = useState<IncomingFriendRequest[]>([]);
 
@@ -35,20 +37,20 @@ export default function FriendRequestsWrapper({}: Props) {
 	// 		setFriendRequests((prev) => [...prev, { senderId, senderEmail, senderName }]);
 	// 	};
 
-	// 	if (session.data?.user.id) {
-	// 		pusherClient.subscribe(toPusherKey(`user:${session.data?.user.id}:incoming_friend_requests`));
-	// 		console.log("listening to ", `user:${session.data?.user.id}:incoming_friend_requests`);
+	// 	if (sessionId) {
+	// 		pusherClient.subscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`));
+	// 		console.log("listening to ", `user:${sessionId}:incoming_friend_requests`);
 
 	// 		pusherClient.bind("incoming_friend_requests", friendRequestHandler);
 	// 	}
 
 	// 	return () => {
-	// 		if (session.data?.user.id) {
-	// 			pusherClient.unsubscribe(toPusherKey(`user:${session.data?.user.id}:incoming_friend_requests`));
+	// 		if (sessionId) {
+	// 			pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`));
 	// 			pusherClient.unbind("incoming_friend_requests", friendRequestHandler);
 	// 		}
 	// 	};
-	// }, [session.data?.user.id]);
+	// }, [sessionId]);
 
 	const acceptFriend = async (senderId: string) => {
 		await axios.post("/api/friends/accept", { id: senderId });

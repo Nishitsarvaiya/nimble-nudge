@@ -4,10 +4,22 @@ import { Icons } from "../Icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { ScrollArea } from "../ui/scroll-area";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import ChatList from "../ChatList";
+import { toast } from "sonner";
+import { getFriendsByUserId } from "@/helpers/get-friends-by-user-id";
+import { notFound } from "next/navigation";
 
 type Props = {};
 
-export default function MessagesView({}: Props) {
+export default async function MessagesView({}: Props) {
+	const session = await getServerSession(authOptions);
+	if (!session) notFound();
+
+	const friends = await getFriendsByUserId(session.user.id);
+	console.log("friends", friends);
+
 	return (
 		<div className="h-full max-h-screen">
 			<div className="h-[100px] flex items-center justify-between pl-8 pr-5">
@@ -24,44 +36,17 @@ export default function MessagesView({}: Props) {
 					<Icons.filters className="w-6 h-6 fill-primary" />
 				</Button>
 			</div>
-			<div className="px-8 py-5">
-				<div className="flex flex-col items-center justify-center">
-					<Icons.users className="w-12 h-12 fill-muted-foreground" />
-					<div className="text-base font-medium text-center text-muted-foreground mt-4">
-						Select a friend to chat with!
+			{friends.length == 0 && (
+				<div className="px-8 py-5">
+					<div className="flex flex-col items-center justify-center">
+						<Icons.messages className="w-8 h-8 fill-muted-foreground" />
+						<div className="text-base font-medium text-center text-muted-foreground mt-4">Your chats</div>
 					</div>
 				</div>
-			</div>
+			)}
+
 			<ScrollArea style={{ maxHeight: "calc(100% - 176px)" }}>
-				<ul>
-					{/* <li className="px-8">
-						<ChatCard>
-							<Button className="h-auto p-4 rounded-3xl" asChild variant="ghost">
-								<div className="flex items-center justify-between w-full">
-									<div className="flex items-center gap-4">
-										<div>
-											<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-												<Image
-													src="/profile-picture.jpg"
-													alt=""
-													fill
-													style={{ objectFit: "cover" }}
-												/>
-											</div>
-										</div>
-										<div>
-											<div className="text-lg">Nishit Sarvaiya</div>
-											<div className="text-sm text-muted-foreground">How are you?</div>
-										</div>
-									</div>
-									<div>
-										<div className="text-sm font-medium text-muted-foreground">16:30</div>
-									</div>
-								</div>
-							</Button>
-						</ChatCard>
-					</li> */}
-				</ul>
+				<ChatList friends={friends} sessionId={session.user.id} />
 			</ScrollArea>
 		</div>
 	);

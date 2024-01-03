@@ -9,15 +9,17 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import useLoader from "@/hooks/useLoader";
-import { signOut, useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { toast } from "sonner";
 
-type Props = {};
+type Props = {
+	session: Session;
+};
 
-export default function ProfileButton({}: Props) {
+export default function ProfileButton({ session }: Props) {
 	const { showLoader, hideLoader } = useLoader();
-	const session = useSession();
 
 	const signUserOut = async () => {
 		showLoader();
@@ -40,8 +42,8 @@ export default function ProfileButton({}: Props) {
 			<DropdownMenuContent align="start" side="left" sideOffset={10}>
 				<DropdownMenuLabel>
 					<div className="flex flex-col space-y-1">
-						<p className="leading-none">{session.data?.user.name}</p>
-						<p className="text-xs leading-none text-muted-foreground">{session.data?.user.email}</p>
+						<p className="leading-none">{session.user.name}</p>
+						<p className="text-xs leading-none text-muted-foreground">{session.user.email}</p>
 					</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />

@@ -13,7 +13,7 @@ export default function ChatCard({ children }: Props) {
 			<ContextMenuContent>
 				<ContextMenuItem>
 					<div className="w-full flex items-center justify-between">
-						<div>Delete</div>
+						<div>Clear chat</div>
 						<Icons.delete className="w-4 h-4 fill-red-500" />
 					</div>
 				</ContextMenuItem>

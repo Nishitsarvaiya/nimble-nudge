@@ -8,6 +8,7 @@ export const messageValidator = z.object({
 	id: z.string(),
 	senderId: z.string(),
 	text: z.string(),
+	receiverId: z.string(),
 	timestamp: z.number(),
 });
 

@@ -14,8 +14,13 @@ import { pusherClient } from "@/lib/pusher";
 import { toPusherKey } from "@/lib/utils";
 import { MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Session } from "next-auth";
 
-export default function FriendsWrapper() {
+type Props = {
+	sessionId: string;
+};
+
+export default function FriendsWrapper({ sessionId }: Props) {
 	// const session = useSession();
 	const [friends, setFriends] = useState<Friend[]>([]);
 
@@ -35,18 +40,18 @@ export default function FriendsWrapper() {
 	// 	};
 
 	// 	if (session.data?.user.id) {
-	// 		pusherClient.subscribe(toPusherKey(`user:${session.data?.user.id}:new_friend`));
-	// 		console.log("listening to ", `user:${session.data?.user.id}:new_friend`);
+	// 		pusherClient.subscribe(toPusherKey(`user:${sessionId}:new_friend`));
+	// 		console.log("listening to ", `user:${sessionId}:new_friend`);
 	// 		pusherClient.bind("new_friend", friendHandler);
 	// 	}
 
 	// 	return () => {
-	// 		if (session.data?.user.id) {
-	// 			pusherClient.unsubscribe(toPusherKey(`user:${session.data?.user.id}:new_friend`));
+	// 		if (sessionId) {
+	// 			pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:new_friend`));
 	// 			pusherClient.unbind("new_friend", friendHandler);
 	// 		}
 	// 	};
-	// }, [session.data?.user.id]);
+	// }, [sessionId]);
 
 	return (
 		<Dialog>

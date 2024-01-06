@@ -39,7 +39,6 @@ export default function FriendRequestsWrapper({ sessionId }: Props) {
 
 		if (sessionId) {
 			pusherClient.subscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`));
-			console.log('listening to ', `user:${sessionId}:incoming_friend_requests`);
 
 			pusherClient.bind('incoming_friend_requests', friendRequestHandler);
 		}

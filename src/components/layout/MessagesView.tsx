@@ -17,7 +17,6 @@ export default async function MessagesView({}: Props) {
 	if (!session) notFound();
 
 	const friends = await getFriendsByUserId(session.user.id);
-	console.log('friends', friends);
 
 	let friendsWithLastMessage: ExtendedUser[] = [];
 

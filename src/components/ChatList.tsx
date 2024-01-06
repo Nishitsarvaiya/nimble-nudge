@@ -23,17 +23,14 @@ export default function ChatList({ friends, sessionId }: Props) {
 
 	useEffect(() => {
 		pusherClient.subscribe(toPusherKey(`user:${sessionId}:chats`));
-		console.log('listening to :: ', `user:${sessionId}:chats`);
 		pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`));
 
 		const newFriendHandler = (newFriend: ExtendedUser) => {
-			console.log('received new user', newFriend);
 			setActiveChats((prev) => [...prev, newFriend]);
 		};
 
 		const chatHandler = (message: ExtendedMessage) => {
 			const shouldNotify = pathname !== `/chat/${chatHrefConstructor(sessionId, message.senderId)}`;
-			console.log(shouldNotify);
 
 			if (!shouldNotify) return;
 

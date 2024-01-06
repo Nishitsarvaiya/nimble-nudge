@@ -84,30 +84,10 @@ export default async function ChatPage({ params }: Props) {
 											/>
 										</div>
 									</div>
-									<div className='text-center mt-5 mb-10'>
+									<div className='text-center mt-5 mb-2 border-y'>
 										<div className='text-xl font-semibold'>{chatPartner.name}</div>
 										<div className='text-base font-medium text-muted-foreground'>
 											{chatPartner.email}
-										</div>
-									</div>
-									<div className='border-y py-5 space-y-10 mb-2'>
-										<div className='group'>
-											<div className='text-xs font-semibold text-muted-foreground uppercase mb-2'>
-												Status
-											</div>
-											<div className='text-lg font-medium'>Living my life one day at a time!</div>
-										</div>
-										<div className='group'>
-											<div className='text-xs font-semibold text-muted-foreground uppercase mb-2'>
-												Phone
-											</div>
-											<div className='text-lg font-medium'>+91 88496 53474</div>
-										</div>
-										<div className='group'>
-											<div className='text-xs font-semibold text-muted-foreground uppercase mb-2'>
-												Date of Birth
-											</div>
-											<div className='text-lg font-medium'>November 13, 1996</div>
 										</div>
 									</div>
 									<div className='flex justify-end'>

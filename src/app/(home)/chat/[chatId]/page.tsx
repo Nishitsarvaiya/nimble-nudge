@@ -52,8 +52,8 @@ export default async function ChatPage({ params }: Props) {
 	const initialMessages = await getChatMessages(chatId);
 
 	return (
-		<div className='h-screen bg-gray-500 relative'>
-			<div className='h-[100px] w-full bg-background/70 px-8 absolute top-0 left-0 z-20 backdrop-blur-sm'>
+		<div className='h-screen bg-gray-500 dark:bg-background relative'>
+			<div className='h-[100px] w-full bg-background/70 px-8 absolute top-0 left-0 z-20 backdrop-blur-sm dark:border-b'>
 				<div className='h-full flex items-center justify-between'>
 					<div className='flex items-center gap-4'>
 						<div>

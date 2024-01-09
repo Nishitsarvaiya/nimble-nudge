@@ -5,7 +5,7 @@ interface pageProps {}
 
 const Home: FC<pageProps> = ({}) => {
 	return (
-		<div className="h-screen bg-gray-500 relative">
+		<div className="h-screen bg-background relative">
 			<div className="h-full w-full">
 				<div className="h-full mx-auto flex flex-col gap-4 items-center justify-center max-w-xl">
 					<Icons.logoDark className="w-20 h-20 fill-primary" />

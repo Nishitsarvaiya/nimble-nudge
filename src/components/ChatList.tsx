@@ -132,67 +132,69 @@ export default function ChatList({ friends, sessionId }: Props) {
 			) : (
 				<ScrollArea style={{ maxHeight: "calc(100% - 176px)" }}>
 					<ul className="space-y-2 py-2">
-						{filteredChats.sort().map((friend) => {
-							const unseenMessagesCount = unseenMessages.filter((unseenMsg) => {
-								return unseenMsg.senderId === friend.id;
-							}).length;
+						{filteredChats
+							.sort((a, b) => b.lastMessage.timestamp - a.lastMessage.timestamp)
+							.map((friend) => {
+								const unseenMessagesCount = unseenMessages.filter((unseenMsg) => {
+									return unseenMsg.senderId === friend.id;
+								}).length;
 
-							return (
-								<li className="px-8 relative" key={friend.id}>
-									{unseenMessagesCount > 0 && (
-										<div className="w-2 h-2 rounded-full bg-blue-600 absolute left-8 top-1/2 -translate-y-1/2"></div>
-									)}
-									<ChatCard>
-										<Button
-											className={cn("h-auto p-4 rounded-3xl", {
-												"hover:bg-initial": isChatActive(friend.id),
-											})}
-											asChild
-											variant={isChatActive(friend.id) ? "default" : "ghost"}>
-											<Link
-												href={`/chat/${chatHrefConstructor(sessionId, friend.id)}`}
-												className="flex items-center justify-between w-full">
-												<div className="flex items-center gap-4">
-													<div>
-														<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
-															<Image
-																src="/profile-picture.jpg"
-																alt=""
-																fill
-																style={{ objectFit: "cover" }}
-															/>
+								return (
+									<li className="px-8 relative" key={friend.id}>
+										{unseenMessagesCount > 0 && (
+											<div className="w-2 h-2 rounded-full bg-blue-600 absolute left-8 top-1/2 -translate-y-1/2"></div>
+										)}
+										<ChatCard chatId={chatHrefConstructor(sessionId, friend.id)}>
+											<Button
+												className={cn("h-auto p-4 rounded-3xl", {
+													"hover:bg-initial": isChatActive(friend.id),
+												})}
+												asChild
+												variant={isChatActive(friend.id) ? "default" : "ghost"}>
+												<Link
+													href={`/chat/${chatHrefConstructor(sessionId, friend.id)}`}
+													className="flex items-center justify-between w-full">
+													<div className="flex items-center gap-4">
+														<div>
+															<div className="w-[60px] h-[60px] rounded-full overflow-hidden relative">
+																<Image
+																	src="/profile-picture.jpg"
+																	alt=""
+																	fill
+																	style={{ objectFit: "cover" }}
+																/>
+															</div>
+														</div>
+														<div className="max-w-[150px]">
+															<div className="text-lg">{friend.name}</div>
+															{friend.lastMessage && (
+																<div
+																	className={cn(
+																		"text-sm text-ellipsis font-medium overflow-clip",
+																		{
+																			"text-muted": isChatActive(friend.id),
+																			"text-muted-foreground": !isChatActive(
+																				friend.id
+																			),
+																		}
+																	)}>
+																	{friend.lastMessage.text}
+																</div>
+															)}
 														</div>
 													</div>
-													<div className="max-w-[150px]">
-														<div className="text-lg">{friend.name}</div>
-														{friend.lastMessage && (
-															<div
-																className={cn(
-																	"text-sm text-ellipsis font-medium overflow-clip",
-																	{
-																		"text-muted": isChatActive(friend.id),
-																		"text-muted-foreground": !isChatActive(
-																			friend.id
-																		),
-																	}
-																)}>
-																{friend.lastMessage.text}
-															</div>
-														)}
+													<div>
+														<div className="text-xs font-medium text-muted-foreground">
+															{friend.lastMessage &&
+																formatTimestamp(friend.lastMessage.timestamp)}
+														</div>
 													</div>
-												</div>
-												<div>
-													<div className="text-xs font-medium text-muted-foreground">
-														{friend.lastMessage &&
-															formatTimestamp(friend.lastMessage.timestamp)}
-													</div>
-												</div>
-											</Link>
-										</Button>
-									</ChatCard>
-								</li>
-							);
-						})}
+												</Link>
+											</Button>
+										</ChatCard>
+									</li>
+								);
+							})}
 					</ul>
 				</ScrollArea>
 			)}

@@ -1,13 +1,12 @@
 "use client";
 
+import { pusherClient } from "@/lib/pusher";
+import { cn, formatTimestamp, toPusherKey } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import Spinner from "../Spinner";
 import { ScrollArea } from "../ui/scroll-area";
 import ChatInput from "./ChatInput";
-import { cn, formatTimestamp, toPusherKey } from "@/lib/utils";
-import { format } from "date-fns";
-import { pusherClient } from "@/lib/pusher";
+import { unstable_noStore } from "next/cache";
 
 type Props = {
 	chatId: string;

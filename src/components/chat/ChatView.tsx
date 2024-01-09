@@ -43,7 +43,7 @@ export default function ChatView({ chatId, chatPartner, sessionId, initialMessag
 	}, [chatId]);
 
 	return (
-		<div className="relative z-[1]">
+		<div className="relative z-[1] before:absolute before:w-full before:h-28 before:bg-gradient-to-t from-black via-black to-transparent before:bottom-0 before:z-[1]">
 			<ScrollArea className="h-screen" ref={containerRef}>
 				<div className="h-full py-[120px]">
 					{showChat && (

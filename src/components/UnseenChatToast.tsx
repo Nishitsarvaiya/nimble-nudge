@@ -21,8 +21,8 @@ export default function UnseenChatToast({ senderId, sessionId, senderImg, sender
 					</div>
 
 					<div className="ml-3 flex-1">
-						<p className="text-base font-medium text-foreground">{senderName}</p>
-						<p className="text-sm text-foreground">{senderMessage}</p>
+						<p className="text-base font-medium text-foreground dark:text-black">{senderName}</p>
+						<p className="text-sm text-foreground dark:text-black">{senderMessage}</p>
 					</div>
 				</div>
 			</a>
